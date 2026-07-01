@@ -2,8 +2,7 @@
 
 import { motion, type Variants } from "framer-motion";
 import { profile } from "@/data/portfolio";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
+import { EASE } from "@/lib/motion";
 
 const container: Variants = {
   hidden: {},
