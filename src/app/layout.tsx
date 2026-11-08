@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Header } from "@/components/layout/Header";
 import { CustomCursor } from "@/components/motion/CustomCursor";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
+import { MotionProvider } from "@/components/providers/MotionProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
 import { profile } from "@/content/profile";
 import { fontVariables } from "@/lib/fonts";
@@ -39,14 +40,20 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko" className={fontVariables}>
+    <html lang="ko" className={fontVariables} suppressHydrationWarning>
+      <head>
+        {/* JS가 켜져 있음을 CSS에 알린다 → 인트로 요소를 첫 페인트부터 숨겨 깜빡임을 막는다 */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body>
-        <SmoothScroll>
-          <ScrollProgress />
-          <CustomCursor />
-          <Header />
-          {children}
-        </SmoothScroll>
+        <MotionProvider>
+          <SmoothScroll>
+            <ScrollProgress />
+            <CustomCursor />
+            <Header />
+            {children}
+          </SmoothScroll>
+        </MotionProvider>
       </body>
     </html>
   );

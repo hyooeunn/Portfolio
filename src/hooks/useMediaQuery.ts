@@ -20,6 +20,8 @@ export function useMediaQuery(query: string, serverFallback = false) {
 
 export const MEDIA = {
   reducedMotion: "(prefers-reduced-motion: reduce)",
+  /** 애니메이션을 켜도 되는 환경 (gsap.matchMedia 조건용) */
+  motionOk: "(prefers-reduced-motion: no-preference)",
   /** 마우스처럼 정밀한 포인터가 있는 기기 */
   finePointer: "(hover: hover) and (pointer: fine)",
   desktop: "(min-width: 1024px)",
