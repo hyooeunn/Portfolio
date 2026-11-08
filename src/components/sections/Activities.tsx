@@ -3,9 +3,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useMemo, useRef, useState } from "react";
-import { BadgeMonkey } from "@/components/mascot/BadgeMonkey";
+import { SpaceAsset } from "@/components/space/SpaceAsset";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { type ActivityKind, activities, activityKindLabel } from "@/content/activities";
+import { space } from "@/content/assets";
 import { useGsap } from "@/hooks/useGsap";
 import { MEDIA } from "@/hooks/useMediaQuery";
 import { cn } from "@/lib/cn";
@@ -89,19 +90,37 @@ export function Activities() {
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
             <SectionLabel index="04" label="Activities" />
-            <h2 id="activities-title" className="mt-6 text-title font-semibold">
+            <p className="mt-6 font-wide text-[clamp(2rem,4vw,3.25rem)] leading-none">
+              Growing <span className="text-glow">step by step.</span>
+            </p>
+            <h2 id="activities-title" className="mt-5 text-title font-semibold">
               {SUMMARY}
             </h2>
 
-            <div className="mt-8 flex items-end gap-5">
-              <BadgeMonkey count={count} className="w-32 shrink-0 md:w-40" />
-              <p className="pb-3" aria-live="polite">
+            {/* 타임라인을 지날 때마다 배지가 모이고, 원숭이가 엄지를 들어 반응한다 */}
+            <div className="glass hud relative mt-8 flex items-end gap-4 rounded-2xl p-5">
+              <motion.div
+                key={count}
+                initial={{ scale: 1.12, rotate: -6 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: "spring", stiffness: 380, damping: 12 }}
+                className="w-24 shrink-0 md:w-28"
+              >
+                <SpaceAsset src={space.monkey.thumbsup} width={112} />
+              </motion.div>
+              <div className="flex-1 pb-1" aria-live="polite">
                 <span className="eyebrow block">모은 경험 배지</span>
-                <span className="font-display text-5xl font-bold tabular-nums">
-                  <span className="text-accent">{count}</span>
+                <span className="font-wide text-5xl tabular-nums">
+                  <span className="text-glow">{count}</span>
                   <span className="text-subtle">/{list.length}</span>
                 </span>
-              </p>
+                <span aria-hidden className="mt-3 block h-2.5 overflow-hidden rounded-full border border-line bg-bg/60">
+                  <span
+                    className="block h-full rounded-full bg-[repeating-linear-gradient(-45deg,var(--color-accent)_0_8px,#9ccc1f_8px_14px)] shadow-[0_0_12px_var(--color-accent)] transition-[width] duration-[var(--duration-base)] ease-[var(--ease-out)]"
+                    style={{ width: `${list.length ? (count / list.length) * 100 : 0}%` }}
+                  />
+                </span>
+              </div>
             </div>
 
             <div role="tablist" aria-label="활동 종류" className="mt-8 -mx-1 flex flex-wrap gap-2 px-1">
@@ -115,7 +134,9 @@ export function Activities() {
                   onClick={() => setFilter(f.id)}
                   className={cn(
                     "rounded-full px-4 py-2 text-sm transition-colors duration-[var(--duration-fast)]",
-                    filter === f.id ? "bg-accent text-accent-ink" : "border border-line text-muted hover:text-fg",
+                    filter === f.id
+                      ? "bg-accent text-accent-ink shadow-[0_0_16px_rgb(198_244_50/0.35)]"
+                      : "glass text-muted hover:text-fg",
                   )}
                 >
                   {f.label}
@@ -138,21 +159,22 @@ export function Activities() {
           >
             {/* 세로선 */}
             <span aria-hidden className="absolute top-2 bottom-2 left-[7px] w-px bg-line" />
-            <span aria-hidden className="tl-fill absolute top-2 bottom-2 left-[7px] w-px origin-top bg-accent" />
+            <span aria-hidden className="tl-fill absolute top-2 bottom-2 left-[7px] w-px origin-top bg-accent shadow-[0_0_8px_var(--color-accent)]" />
 
             {list.map((a) => (
-              <li key={a.id} className="tl-item group/item relative pb-12 pl-10 last:pb-0">
+              <li key={a.id} className="tl-item group/item relative pb-6 pl-10 last:pb-0">
                 <span
                   aria-hidden
-                  className="tl-dot absolute top-1.5 left-0 size-[15px] rounded-full border-2 border-line bg-bg transition-colors duration-[var(--duration-fast)]"
+                  className="tl-dot absolute top-6 left-0 size-[15px] rounded-full border-2 border-line-strong bg-bg transition-[background-color,border-color,box-shadow] duration-[var(--duration-fast)]"
                 />
+                <div className="glass rounded-2xl p-5 transition-colors duration-[var(--duration-fast)] group-hover/item:border-line-strong md:p-6">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                  <time className="font-mono text-sm text-muted" dateTime={a.date?.replace(".", "-")}>
+                  <time className="font-mono text-sm text-accent" dateTime={a.date?.replace(".", "-")}>
                     {a.date ?? "—"}
                   </time>
                   <span className="eyebrow">{activityKindLabel[a.kind]}</span>
                   {a.award ? (
-                    <span className="rounded-full bg-accent px-2.5 py-0.5 font-mono text-[11px] tracking-wider text-accent-ink">
+                    <span className="rounded-full bg-accent px-2.5 py-0.5 font-mono text-[11px] tracking-wider text-accent-ink shadow-[0_0_12px_rgb(198_244_50/0.35)]">
                       {a.award}
                     </span>
                   ) : null}
@@ -161,7 +183,7 @@ export function Activities() {
                 <p className="mt-3 max-w-2xl leading-relaxed text-muted">{a.description}</p>
                 <div className="mt-4 flex flex-wrap items-center gap-2">
                   {a.tags.map((t) => (
-                    <span key={t} className="rounded-full bg-surface px-3 py-1 text-xs text-muted">
+                    <span key={t} className="rounded-full border border-line bg-white/[0.03] px-3 py-1 text-xs text-muted">
                       {t}
                     </span>
                   ))}
@@ -173,6 +195,7 @@ export function Activities() {
                       프로젝트 보기 →
                     </Link>
                   ) : null}
+                </div>
                 </div>
               </li>
             ))}
