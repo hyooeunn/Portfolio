@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { HangingMonkey } from "@/components/mascot/HangingMonkey";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { Marquee } from "@/components/motion/Marquee";
 import { useScrollTo } from "@/components/providers/SmoothScroll";
@@ -80,7 +81,14 @@ export function Hero() {
 
   return (
     <section ref={rootRef} id="top" aria-label="소개" className="relative flex min-h-dvh flex-col pt-16">
-      <div data-hero-inner className="container-page flex flex-1 flex-col justify-end pb-10 md:pb-14">
+      {/* 마스코트: 오른쪽 위 빈 공간에 매달려 방문자를 맞이한다 */}
+      <HangingMonkey className="absolute top-16 right-4 z-10 w-28 sm:w-36 md:right-[7%] md:w-48 lg:w-56" />
+
+      {/* 모바일에서는 마스코트 아래부터 내용이 시작되도록 위 여백을 확보 */}
+      <div
+        data-hero-inner
+        className="container-page flex flex-1 flex-col justify-end pt-36 pb-10 sm:pt-44 md:pt-24 md:pb-14"
+      >
         <div data-intro-fade className="eyebrow flex items-center justify-between">
           <span>Portfolio · {profile.name}</span>
           <span>{profile.role}</span>

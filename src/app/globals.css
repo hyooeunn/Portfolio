@@ -15,6 +15,13 @@
   --color-accent: #c6f432;
   --color-accent-ink: #0b0b0c;
 
+  /* 마스코트(Curious Monkey) 팔레트 — 크림 털 + 짙은 브라운 + 라임 포인트 */
+  --color-fur: #eadcc4;
+  --color-fur-light: #fbf6ec;
+  --color-fur-shade: #c9a98e;
+  --color-bark: #3b2a20;
+  --color-branch: #5a4334;
+
   --font-sans: var(--font-plex-kr), var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-archivo), var(--font-plex-kr), ui-sans-serif, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
