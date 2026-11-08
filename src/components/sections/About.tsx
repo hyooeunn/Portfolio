@@ -2,11 +2,17 @@
 
 import { useRef } from "react";
 import { Reveal } from "@/components/motion/Reveal";
+import { Parallax } from "@/components/space/Parallax";
+import { SpaceAsset } from "@/components/space/SpaceAsset";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { space } from "@/content/assets";
 import { profile } from "@/content/profile";
 import { useGsap } from "@/hooks/useGsap";
 import { MEDIA } from "@/hooks/useMediaQuery";
 import { gsap } from "@/lib/gsap";
+
+/** 키워드 카드 아이콘: 구조 → 큐브, 근거 → 레이더, 기준 → 크리스털 별 */
+const KEYWORD_ART = [space.cube, space.radar, space.starCrystal];
 
 /** 소개글에서 포인트 컬러로 채워질 단어 */
 const ACCENT_WORDS = ["구조", "근거", "기준"];
@@ -49,18 +55,32 @@ export function About() {
       ref={rootRef}
       id="about"
       aria-labelledby="about-title"
-      className="container-page py-28 md:py-44"
+      className="container-page relative py-28 md:py-44"
     >
+      <Parallax speed={0.5} className="pointer-events-none absolute top-24 right-0 hidden w-36 opacity-70 lg:block">
+        <SpaceAsset src={space.asteroid} float={11} width={144} />
+      </Parallax>
       <div className="grid gap-10 md:grid-cols-12">
         <div className="md:col-span-3">
-          <SectionLabel index="01" label="About" className="md:sticky md:top-28" />
+          <div className="md:sticky md:top-28">
+            <SectionLabel index="01" label="About" />
+            {/* 소개글을 가리키는 원숭이 */}
+            <SpaceAsset
+              src={space.monkey.point}
+              alt=""
+              float={6}
+              width={180}
+              className="mt-10 hidden w-36 md:block lg:w-44"
+            />
+          </div>
         </div>
 
         <div className="md:col-span-9">
-          <h2 id="about-title" className="text-title font-semibold">
-            추측 대신 <span className="text-accent">근거</span>로,
-            <br />
-            코드보다 <span className="text-accent">구조</span>를 먼저.
+          <p className="font-wide text-[clamp(2rem,4.5vw,3.75rem)] leading-none">
+            Structure before <span className="text-glow">code.</span>
+          </p>
+          <h2 id="about-title" className="mt-5 text-title font-semibold">
+            추측 대신 <span className="text-glow">근거</span>로, 코드보다 <span className="text-glow">구조</span>를 먼저.
           </h2>
 
           <p
@@ -73,7 +93,7 @@ export function About() {
                   <span
                     key={wi}
                     className={
-                      "about-word inline " + (ACCENT_WORDS.some((w) => word.includes(w)) ? "text-accent" : "")
+                      "about-word inline " + (ACCENT_WORDS.some((w) => word.includes(w)) ? "text-glow" : "")
                     }
                   >
                     {word}{" "}
@@ -83,20 +103,23 @@ export function About() {
             ))}
           </p>
 
-          <ol className="mt-20 grid gap-10 md:mt-28 md:grid-cols-3 md:gap-8">
+          <ol className="relative mt-20 grid gap-5 md:mt-28 md:grid-cols-3">
+            {/* 카드를 잇는 회로선 */}
+            <span aria-hidden className="absolute top-1/2 right-8 left-8 hidden h-px bg-linear-to-r from-accent/0 via-accent/50 to-accent/0 md:block" />
             {profile.keywords.map((k, i) => (
-              <Reveal key={k.title} as="li" delay={i * 0.08} className="border-t border-line pt-6">
-                <div className="flex items-baseline justify-between">
-                  <span className="font-mono text-sm text-accent">0{i + 1}</span>
-                  <span className="eyebrow">{k.en}</span>
+              <Reveal key={k.title} as="li" delay={i * 0.08} className="glass hud relative rounded-2xl p-6">
+                <div className="flex items-start justify-between">
+                  <span className="font-wide text-3xl text-accent">0{i + 1}</span>
+                  <SpaceAsset src={KEYWORD_ART[i]} width={72} className="-mt-2 -mr-2 w-16" />
                 </div>
-                <h3 className="mt-6 text-2xl font-semibold tracking-tight">{k.title}</h3>
+                <p className="eyebrow mt-6">{k.en}</p>
+                <h3 className="mt-2 text-2xl font-semibold tracking-tight">{k.title}</h3>
                 <p className="mt-3 leading-relaxed text-muted">{k.description}</p>
               </Reveal>
             ))}
           </ol>
 
-          <Reveal className="mt-20 grid gap-2 border-y border-line py-6 md:grid-cols-12 md:items-baseline">
+          <Reveal className="glass mt-8 grid gap-2 rounded-2xl px-6 py-5 md:grid-cols-12 md:items-baseline">
             <p className="eyebrow md:col-span-3">Education</p>
             <p className="text-lg font-semibold md:col-span-6">
               {profile.education.school}
