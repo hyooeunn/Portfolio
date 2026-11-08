@@ -114,6 +114,33 @@ html.has-custom-cursor textarea {
   color: var(--color-muted);
 }
 
+/* ───────────────────────── Intro ─────────────────────────
+ * JS가 켜진 상태에서만 인트로 요소를 숨겨두고 GSAP이 보여준다(서버 HTML 깜빡임 방지).
+ * 스크립트가 실패해도 2.5초 뒤에는 반드시 보이게 하는 안전장치를 둔다.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-intro],
+  html.js [data-intro-fade] {
+    visibility: hidden;
+    animation: intro-failsafe 0s 2.5s forwards;
+  }
+}
+@keyframes intro-failsafe {
+  to {
+    visibility: visible;
+  }
+}
+
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
 /* ───────────────────────── Reduced motion ───────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
