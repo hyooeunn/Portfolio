@@ -8,6 +8,9 @@ export const profile = {
   nameEn: "LEE HYOEUN",
   role: "Front-End Developer",
 
+  /** Hero 큰 영문 타이틀 (두 줄, 둘째 줄이 라임) */
+  tagline: ["CURIOUS", "EXPLORER"],
+
   /** Hero 컨셉 한 줄 */
   headline: "코드보다 먼저, 구조를 그립니다.",
 
