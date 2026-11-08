@@ -53,6 +53,18 @@
   --duration-fast: 350ms;
   --duration-base: 800ms;
   --duration-slow: 1200ms;
+
+  /* 에셋 무중력 떠다니기 */
+  --animate-float: float 6s var(--ease-in-out) infinite;
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(0, -14px, 0) rotate(2deg);
+    }
+  }
 }
 
 /* ───────────────────────── Base ───────────────────────── */
