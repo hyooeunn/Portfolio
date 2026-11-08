@@ -1,8 +1,9 @@
 import { Archivo, IBM_Plex_Sans_KR, JetBrains_Mono } from "next/font/google";
 
-/** 영문 디스플레이 — 큰 타이포그래피용 */
+/** 영문 디스플레이 — 큰 타이포그래피용. 기울임 + 넓은 폭(wdth)으로 "CURIOUS EXPLORER"를 만든다 */
 export const archivo = Archivo({
   subsets: ["latin"],
+  style: ["normal", "italic"],
   variable: "--font-archivo",
   display: "swap",
   axes: ["wdth"],
