@@ -1,54 +1,69 @@
 /**
- * Curious Monkey 머리. 모든 포즈(매달리기·작업·배지·모험)가 이 머리를 공유한다.
- * 좌표계: 머리 중심 (100, 118), 반지름 50. 부모 <svg> 안에 <g>로 들어간다.
+ * Curious Monkey 머리 (2등신 치비 스타일).
+ * 모든 포즈(매달리기·작업·배지·모험)가 이 머리를 공유한다.
+ * 좌표계: 머리 중심 (118, 118), 반지름 62. 부모 <svg> 안에 <g>로 들어간다.
  *
  * 애니메이션 훅용 클래스
  * - .m-eyes : 시선(커서 따라보기) 이동
  * - .m-eye, .m-eye-l, .m-eye-r : 깜빡임 · 윙크
+ * - .m-tongue : 메롱 (기본 숨김)
  */
+export const MONKEY_HEAD_CENTER = { x: 118, y: 118 } as const;
+
 export function MonkeyHead() {
   return (
     <g className="m-head">
-      {/* 귀 */}
-      <circle cx="50" cy="122" r="17" fill="var(--color-fur)" />
-      <circle cx="50" cy="122" r="9" fill="var(--color-fur-shade)" />
-      <circle cx="150" cy="122" r="17" fill="var(--color-fur)" />
-      <circle cx="150" cy="122" r="9" fill="var(--color-fur-shade)" />
+      <g stroke="var(--color-ink)" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round">
+        {/* 귀 */}
+        <circle cx="52" cy="124" r="22" fill="var(--color-fur)" />
+        <circle cx="52" cy="124" r="12" fill="var(--color-ear)" stroke="none" />
+        <circle cx="184" cy="124" r="22" fill="var(--color-fur)" />
+        <circle cx="184" cy="124" r="12" fill="var(--color-ear)" stroke="none" />
 
-      {/* 머리 + 앞머리 */}
-      <circle cx="100" cy="118" r="50" fill="var(--color-fur)" />
-      <path d="M84 76c1-18 24-24 32-6-7-6-15-6-19 2-4-4-9-3-13 4Z" fill="var(--color-bark)" />
+        {/* 앞머리 */}
+        <path d="M104 64c0-12 6-20 12-22-2 6 0 11 4 13 2-8 8-12 14-12-4 6-4 14-2 21Z" fill="var(--color-fur)" />
 
-      {/* 얼굴 마스크 */}
-      <g fill="var(--color-fur-light)">
-        <circle cx="84" cy="114" r="22" />
-        <circle cx="116" cy="114" r="22" />
-        <ellipse cx="100" cy="140" rx="32" ry="22" />
+        {/* 머리 + 하트 모양 얼굴 */}
+        <circle cx="118" cy="118" r="62" fill="var(--color-fur)" />
+        <path
+          d="M118 92C106 76 72 76 68 108C64 136 84 170 118 172C152 170 172 136 168 108C164 76 130 76 118 92Z"
+          fill="var(--color-face)"
+          strokeWidth="3"
+        />
       </g>
 
-      {/* 볼터치(라임) */}
-      <circle cx="72" cy="134" r="6" fill="var(--color-accent)" opacity="0.45" />
-      <circle cx="128" cy="134" r="6" fill="var(--color-accent)" opacity="0.45" />
+      {/* 볼터치 */}
+      <ellipse cx="80" cy="142" rx="9" ry="5" fill="var(--color-blush)" opacity="0.85" />
+      <ellipse cx="156" cy="142" rx="9" ry="5" fill="var(--color-blush)" opacity="0.85" />
 
-      {/* 눈 */}
+      {/* 눈 — 큰 하이라이트 + 작은 하이라이트 */}
       <g className="m-eyes">
         <g className="m-eye m-eye-l">
-          <ellipse cx="86" cy="114" rx="6.5" ry="8" fill="var(--color-bark)" />
-          <circle cx="88.2" cy="111" r="2.2" fill="var(--color-fur-light)" />
+          <circle cx="96" cy="120" r="12.5" fill="var(--color-ink)" />
+          <circle cx="100.5" cy="114.5" r="4.8" fill="#fff" />
+          <circle cx="92" cy="125.5" r="2.3" fill="#fff" />
         </g>
         <g className="m-eye m-eye-r">
-          <ellipse cx="114" cy="114" rx="6.5" ry="8" fill="var(--color-bark)" />
-          <circle cx="116.2" cy="111" r="2.2" fill="var(--color-fur-light)" />
+          <circle cx="140" cy="120" r="12.5" fill="var(--color-ink)" />
+          <circle cx="144.5" cy="114.5" r="4.8" fill="#fff" />
+          <circle cx="136" cy="125.5" r="2.3" fill="#fff" />
         </g>
       </g>
 
-      {/* 코 · 입 */}
-      <circle cx="96" cy="134" r="1.9" fill="var(--color-bark)" />
-      <circle cx="104" cy="134" r="1.9" fill="var(--color-bark)" />
+      {/* 입(ω) + 메롱 */}
       <path
-        d="M90 143q10 9 20 0"
+        className="m-tongue"
+        d="M113 147q5 13 10 0Z"
+        fill="var(--color-blush)"
+        stroke="var(--color-ink)"
+        strokeWidth="2.4"
+        strokeLinejoin="round"
+        opacity="0"
+      />
+      <path
+        d="M106 144q6 7 12 0q6 7 12 0"
         fill="none"
-        stroke="var(--color-bark)"
+        stroke="var(--color-ink)"
         strokeWidth="3"
         strokeLinecap="round"
       />
