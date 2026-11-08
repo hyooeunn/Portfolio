@@ -1,33 +1,127 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* ───────────────────────── Design tokens ─────────────────────────
+ * 다크 베이스 + 포인트 컬러 1개(라임).
+ * Tailwind 유틸리티로 쓸 수 있게 @theme에 등록한다. 예) bg-bg, text-muted, border-line, bg-accent
+ */
+@theme {
+  --color-bg: #0b0b0c;
+  --color-surface: #141416;
+  --color-elevated: #1c1c1f;
+  --color-line: #2a2a2e;
+  --color-fg: #f2f1ec;
+  --color-muted: #9a9a9f;
+  --color-subtle: #6b6b70;
+  --color-accent: #c6f432;
+  --color-accent-ink: #0b0b0c;
 
-:root {
-  --background: #ffffff;
-  --foreground: #18181b;
+  --font-sans: var(--font-plex-kr), var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-archivo), var(--font-plex-kr), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* 큰 타이포 스케일 — clamp로 모바일~데스크톱을 자연스럽게 잇는다 */
+  --text-display: clamp(3.25rem, 11vw, 11rem);
+  --text-display--line-height: 0.9;
+  --text-display--letter-spacing: -0.04em;
+  --text-headline: clamp(2.25rem, 6vw, 5.5rem);
+  --text-headline--line-height: 1;
+  --text-headline--letter-spacing: -0.03em;
+  --text-title: clamp(1.5rem, 3vw, 2.5rem);
+  --text-title--line-height: 1.15;
+  --text-title--letter-spacing: -0.02em;
+
+  /* motion tokens — src/lib/motion.ts 와 같은 값 */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 350ms;
+  --duration-base: 800ms;
+  --duration-slow: 1200ms;
 }
 
-.dark {
-  --background: #0a0a0a;
-  --foreground: #f4f4f5;
+/* ───────────────────────── Base ───────────────────────── */
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-fg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    min-height: 100dvh;
+    font-family: var(--font-sans);
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  /* 키보드 포커스는 항상 보이게 */
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-serif: var(--font-serif);
+/* ───────────────────────── Lenis ───────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
-  transition:
-    background-color 0.4s ease,
-    color 0.4s ease;
+/* ───────────────────────── Custom cursor ─────────────────────────
+ * 커스텀 커서가 켜졌을 때만 기본 커서를 숨긴다(입력창은 텍스트 커서 유지).
+ */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none;
+}
+html.has-custom-cursor input,
+html.has-custom-cursor textarea {
+  cursor: text;
 }
 
-.font-serif {
-  font-family: var(--font-serif), serif;
+/* ───────────────────────── Utilities ───────────────────────── */
+@utility container-page {
+  width: 100%;
+  max-width: 88rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ───────────────────────── Reduced motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
