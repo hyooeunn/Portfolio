@@ -123,6 +123,12 @@ html.has-custom-cursor textarea {
   color: var(--color-muted);
 }
 
+/* ───────────────────────── Timeline ───────────────────────── */
+.tl-item.is-on .tl-dot {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+
 /* ───────────────────────── Intro ─────────────────────────
  * JS가 켜진 상태에서만 인트로 요소를 숨겨두고 GSAP이 보여준다(서버 HTML 깜빡임 방지).
  * 스크립트가 실패해도 2.5초 뒤에는 반드시 보이게 하는 안전장치를 둔다.
