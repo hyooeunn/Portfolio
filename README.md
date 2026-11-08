@@ -24,8 +24,10 @@ src/
 ├─ app/                  라우트 (layout, page, projects/[slug])
 ├─ components/
 │  ├─ layout/            Header, Footer
+│  ├─ mascot/            Curious Monkey (Hero 앉기 · Projects 작업 · Activities 메달 · Contact 모험)
 │  ├─ motion/            CustomCursor, Magnetic, ScrollProgress 등 인터랙션 부품
 │  ├─ providers/         SmoothScroll (Lenis ↔ ScrollTrigger 연동)
+│  ├─ projects/          프로젝트 카드
 │  ├─ sections/          Hero, About, Skills, Projects, Activities, Contact
 │  └─ ui/                Button, 아이콘
 ├─ content/              ✏️ 사이트에 나오는 모든 글 (profile, skills, projects, activities)
@@ -44,6 +46,16 @@ src/
   - `duration.fast / base / slow`: 0.35s / 0.8s / 1.2s
 - GSAP 애니메이션은 반드시 `useGsap`(gsap.context) 안에서 만들어 언마운트 시 정리합니다.
 - 터치 기기와 `prefers-reduced-motion`에서는 커서 · 마그네틱 · Lenis가 꺼집니다.
+
+## 마스코트
+
+`src/components/mascot/` — 원본 SVG 캐릭터. 모든 포즈가 `MonkeyHead`(메롱 · 웃는 눈 표정)를 공유하고,
+공통 반응(깜빡임, 커서 따라보기, 호버 인사)은 `useWave`에 있습니다.
+
+## 배포 (Vercel)
+
+1. Vercel에서 이 레포를 Import → 기본 설정 그대로 Deploy
+2. 커스텀 도메인을 쓰면 환경변수 `NEXT_PUBLIC_SITE_URL`에 주소를 넣어 OG · sitemap 주소를 맞춥니다.
 
 ## TODO
 

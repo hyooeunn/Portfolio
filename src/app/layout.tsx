@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { CustomCursor } from "@/components/motion/CustomCursor";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <CustomCursor />
             <Header />
             {children}
+            <Footer />
           </SmoothScroll>
         </MotionProvider>
       </body>
