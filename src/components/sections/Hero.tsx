@@ -161,10 +161,10 @@ export function Hero() {
       >
         <p data-intro-fade className="eyebrow flex items-center gap-3">
           <span aria-hidden className="size-1.5 rounded-full bg-accent shadow-[0_0_10px_var(--color-accent)]" />
-          {profile.name} · {profile.role}
+          Portfolio
         </p>
 
-        <h1 data-intro className="mt-5 font-wide text-[clamp(3rem,10vw,9.5rem)] leading-[0.88] tracking-[-0.02em]">
+        <h1 data-intro className="mt-5 font-wide text-[clamp(2.75rem,9vw,8.5rem)] leading-[0.88] tracking-[-0.02em]">
           <span className="sr-only">
             {profile.name} — {profile.role}. {profile.headline}
           </span>
@@ -181,7 +181,13 @@ export function Hero() {
           ))}
         </h1>
 
-        <div className="mt-8 grid items-end gap-8 md:grid-cols-12">
+        {/* 이름 */}
+        <p data-intro-fade className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          <span className="text-[clamp(2rem,4vw,3.25rem)] font-bold tracking-tight">{profile.name}</span>
+          <span className="font-display text-lg font-semibold tracking-[0.2em] text-muted md:text-xl">{profile.nameEn}</span>
+        </p>
+
+        <div className="mt-6 grid items-end gap-8 md:grid-cols-12">
           <div className="md:col-span-7">
             <p data-intro-fade className="text-title font-bold">
               <Highlight text={profile.headline} words={["구조"]} className="text-glow" />
@@ -212,12 +218,15 @@ export function Hero() {
           {/* HUD 신분증 카드 */}
           <div data-intro-fade className="hidden md:col-span-5 md:flex md:justify-end">
             <div className="glass hud relative w-64 rounded-2xl p-5">
-              <p className="font-display font-semibold tracking-[0.12em]">{profile.nameEn}</p>
-              <p className="mt-1 text-sm text-muted">{profile.role}</p>
-              <p className="mt-4 font-mono text-[11px] leading-relaxed tracking-wider text-subtle uppercase">
-                Gwangju Software
+              <p className="eyebrow flex items-center gap-2">
+                <span aria-hidden className="size-1.5 animate-pulse rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
+                Status
+              </p>
+              <p className="mt-2 font-semibold">신입 Front-End 개발자로 함께할 팀을 찾고 있어요</p>
+              <p className="mt-3 font-mono text-[11px] leading-relaxed tracking-wider text-subtle uppercase">
+                Gwangju Software Meister HS
                 <br />
-                Meister High School
+                {profile.education.period}
               </p>
             </div>
           </div>

@@ -29,7 +29,7 @@ export default async function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-          <div style={{ fontSize: 26, letterSpacing: 6, color: "#9aa6c4" }}>PORTFOLIO · CURIOUS EXPLORER</div>
+          <div style={{ fontSize: 26, letterSpacing: 6, color: "#9aa6c4" }}>PORTFOLIO</div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={monkey} width={330} height={300} alt="" style={{ position: "absolute", right: 60, top: 40 }} />
         </div>

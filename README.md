@@ -48,7 +48,7 @@ src/
 - GSAP 애니메이션은 반드시 `useGsap`(gsap.context) 안에서 만들어 언마운트 시 정리합니다.
 - 터치 기기와 `prefers-reduced-motion`에서는 커서 · 마그네틱 · Lenis가 꺼집니다.
 
-## 디자인 컨셉 — Curious Explorer
+## 디자인 컨셉 — 우주 탐험
 
 깊은 우주(네이비 블랙) + 라임 포인트 + 유리 카드 · HUD 모서리.
 우주복 원숭이가 섹션마다 다른 포즈로 등장합니다 (Hero 떠다니기 · About 가리키기 · Projects 앉기 · Activities 엄지 척 · Contact 지구 바라보기).
