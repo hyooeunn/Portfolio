@@ -161,33 +161,40 @@ export function Hero() {
       >
         <p data-intro-fade className="eyebrow flex items-center gap-3">
           <span aria-hidden className="size-1.5 rounded-full bg-accent shadow-[0_0_10px_var(--color-accent)]" />
-          Portfolio
+          Portfolio · {profile.name}
         </p>
 
-        <h1 data-intro className="mt-5 font-wide text-[clamp(2.75rem,9vw,8.5rem)] leading-[0.88] tracking-[-0.02em]">
+        {/* 윗줄: 직무(흰색) · 아랫줄: 영문 이름(라임, 가장 크게) */}
+        <h1 data-intro className="mt-5 font-wide tracking-[-0.02em]">
           <span className="sr-only">
-            {profile.name} — {profile.role}. {profile.headline}
+            {profile.name}({profile.nameEn}) — {profile.role}. {profile.headline}
           </span>
-          {profile.tagline.map((line, li) => (
-            <span key={line} aria-hidden className="block overflow-hidden pr-[0.1em] pb-[0.04em]">
+          {[profile.titleRole, profile.nameEn].map((line, li) => (
+            <span
+              key={line}
+              aria-hidden
+              className={
+                li === 0
+                  ? "block overflow-hidden pr-[0.1em] pb-[0.06em] text-[clamp(1.25rem,3.3vw,3.3rem)] leading-[1.05]"
+                  : "mt-1 block overflow-hidden pr-[0.1em] pb-[0.04em] text-[clamp(2.5rem,7vw,7rem)] leading-[0.92]"
+              }
+            >
               <span className={li === 1 ? "text-glow inline-block" : "inline-block"}>
-                {Array.from(line).map((ch, i) => (
-                  <span key={i} className="hero-letter inline-block will-change-transform">
-                    {ch}
-                  </span>
-                ))}
+                {Array.from(line).map((ch, i) =>
+                  ch === " " ? (
+                    <span key={i} className="inline-block w-[0.3em]" />
+                  ) : (
+                    <span key={i} className="hero-letter inline-block will-change-transform">
+                      {ch}
+                    </span>
+                  ),
+                )}
               </span>
             </span>
           ))}
         </h1>
 
-        {/* 이름 */}
-        <p data-intro-fade className="mt-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-          <span className="text-[clamp(2rem,4vw,3.25rem)] font-bold tracking-tight">{profile.name}</span>
-          <span className="font-display text-lg font-semibold tracking-[0.2em] text-muted md:text-xl">{profile.nameEn}</span>
-        </p>
-
-        <div className="mt-6 grid items-end gap-8 md:grid-cols-12">
+        <div className="mt-8 grid items-end gap-8 md:grid-cols-12">
           <div className="md:col-span-7">
             <p data-intro-fade className="text-title font-bold">
               <Highlight text={profile.headline} words={["구조"]} className="text-glow" />
