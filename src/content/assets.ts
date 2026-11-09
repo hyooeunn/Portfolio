@@ -1,3 +1,5 @@
+import type { StaticImageData } from "next/image";
+
 /**
  * 우주 에셋 (GPT로 만든 에셋 시트 2장에서 잘라낸 투명 WebP).
  * 정적 import라서 next/image가 크기를 자동으로 알고 최적화한다.
@@ -94,7 +96,7 @@ export const skillIcons = {
 export const terminalIcon = iconTerminal;
 
 /** 프로젝트 카드 장식 */
-export const projectArt: Record<string, (typeof space)[keyof typeof space]> = {
+export const projectArt: Record<string, StaticImageData | undefined> = {
   gif: ringSpark,
   signal: hudScope,
   flooding: wirePlanet,

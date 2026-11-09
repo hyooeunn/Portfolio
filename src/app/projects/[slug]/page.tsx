@@ -51,6 +51,7 @@ export default async function ProjectPage({ params }: Props) {
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
   const ts = project.troubleshooting;
+  const art = projectArt[project.slug];
   // 트러블슈팅의 '배운 점'과 같은 문장은 한 번만 보여준다
   const learned = (project.learned ?? []).filter((l) => l !== ts?.learned);
 
@@ -75,9 +76,9 @@ export default async function ProjectPage({ params }: Props) {
 
       {/* 요약 */}
       <header className="relative mt-10">
-        {projectArt[project.slug] ? (
+        {art ? (
           <div aria-hidden className="pointer-events-none absolute -top-6 right-0 w-36 md:w-64">
-            <SpaceAsset src={projectArt[project.slug]} width={256} float={9} priority />
+            <SpaceAsset src={art} width={256} float={9} priority />
           </div>
         ) : null}
         <ProjectMeta project={project} />

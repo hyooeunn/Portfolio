@@ -39,7 +39,7 @@ export function SpaceAsset({
       priority={priority}
       sizes={`${width}px`}
       draggable={false}
-      className={cn("pointer-events-none h-auto select-none", float && "animate-float", className)}
+      className={cn("pointer-events-none h-auto select-none", float ? "animate-float" : null, className)}
       style={{
         ...(float ? { animationDuration: `${float}s`, animationDelay: `${-delay}s` } : {}),
         ...style,

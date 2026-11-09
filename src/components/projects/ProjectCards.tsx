@@ -36,6 +36,7 @@ export function ProjectMeta({ project }: { project: Project }) {
 /** 대표 프로젝트 카드 — 요약(문제 · 내 역할 · 성과)을 먼저, 트러블슈팅은 미리보기로 */
 export function FeaturedProjectCard({ project, index }: { project: Project; index: number }) {
   const contributions = project.contributions.flatMap((c) => c.items).slice(0, 3);
+  const art = projectArt[project.slug];
 
   return (
     <Link
@@ -45,7 +46,7 @@ export function FeaturedProjectCard({ project, index }: { project: Project; inde
     >
       {/* 프로젝트 장식 에셋 */}
       <div aria-hidden className="pointer-events-none absolute -top-6 right-6 hidden w-44 opacity-90 transition-transform duration-[var(--duration-base)] ease-[var(--ease-out)] group-hover/card:-translate-y-2 group-hover/card:rotate-3 lg:block xl:w-52">
-        {projectArt[project.slug] ? <SpaceAsset src={projectArt[project.slug]} width={208} float={9} /> : null}
+        {art ? <SpaceAsset src={art} width={208} float={9} /> : null}
       </div>
       <div className="relative flex flex-wrap items-center justify-between gap-4 lg:pr-56">
         <span className="font-wide text-2xl text-accent">{String(index + 1).padStart(2, "0")}</span>
@@ -133,6 +134,7 @@ export function FeaturedProjectCard({ project, index }: { project: Project; inde
 
 /** 기타 프로젝트 카드 — 한 줄 요약 + 내 역할 */
 export function ProjectCard({ project }: { project: Project }) {
+  const art = projectArt[project.slug];
   return (
     <Link
       href={`/projects/${project.slug}`}
@@ -140,7 +142,7 @@ export function ProjectCard({ project }: { project: Project }) {
       className="group/card glass relative flex h-full flex-col overflow-hidden rounded-3xl p-6 transition-colors duration-[var(--duration-fast)] hover:border-line-strong"
     >
       <div aria-hidden className="pointer-events-none absolute -top-4 -right-4 w-28 opacity-80 transition-transform duration-[var(--duration-base)] ease-[var(--ease-out)] group-hover/card:-translate-y-1 group-hover/card:rotate-6">
-        {projectArt[project.slug] ? <SpaceAsset src={projectArt[project.slug]} width={112} /> : null}
+        {art ? <SpaceAsset src={art} width={112} /> : null}
       </div>
       <div className="relative pr-20">
         <ProjectMeta project={project} />
