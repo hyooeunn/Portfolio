@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import { WorkingMonkey } from "@/components/mascot/WorkingMonkey";
 import { Reveal } from "@/components/motion/Reveal";
 import { FeaturedProjectCard, ProjectCard } from "@/components/projects/ProjectCards";
+import { SpaceAsset } from "@/components/space/SpaceAsset";
 import { SectionLabel } from "@/components/ui/SectionLabel";
+import { space } from "@/content/assets";
 import { projects } from "@/content/projects";
 import { useGsap } from "@/hooks/useGsap";
 import { MEDIA } from "@/hooks/useMediaQuery";
@@ -58,17 +59,18 @@ export function Projects() {
       <div className="grid items-end gap-8 md:grid-cols-12">
         <div className="md:col-span-8">
           <SectionLabel index="03" label="Projects" />
-          <h2 id="projects-title" className="mt-6 text-title font-semibold">
-            직접 맡은 기능과
-            <br />
-            문제를 해결한 과정으로 보는 프로젝트
+          <p className="mt-6 font-wide text-[clamp(2rem,4.5vw,3.75rem)] leading-none">
+            Ideas into <span className="text-glow">real services.</span>
+          </p>
+          <h2 id="projects-title" className="mt-5 text-title font-semibold">
+            직접 맡은 기능과 문제를 해결한 과정으로 보는 프로젝트
           </h2>
           <p className="mt-4 text-muted">
             대표 프로젝트 {featured.length}개 · 그 밖의 프로젝트 {others.length}개. 카드를 누르면 상세 내용을 볼 수 있어요.
           </p>
         </div>
         <div className="flex justify-end md:col-span-4">
-          <WorkingMonkey className="w-36 md:w-48" />
+          <SpaceAsset src={space.monkey.sit} alt="" float={7} width={200} className="w-32 md:w-44" />
         </div>
       </div>
 

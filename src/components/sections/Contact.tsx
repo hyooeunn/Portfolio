@@ -1,12 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { AdventureMonkey } from "@/components/mascot/AdventureMonkey";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { Marquee } from "@/components/motion/Marquee";
+import { SpaceAsset } from "@/components/space/SpaceAsset";
 import { ButtonLink } from "@/components/ui/Button";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ArrowUpRight, Download, GitHub, Mail } from "@/components/ui/icons";
+import { space } from "@/content/assets";
 import { profile } from "@/content/profile";
 import { useGsap } from "@/hooks/useGsap";
 import { MEDIA } from "@/hooks/useMediaQuery";
@@ -67,10 +68,10 @@ export function Contact() {
         <div className="grid items-end gap-10 lg:grid-cols-12">
           <div className="lg:col-span-8">
             <SectionLabel index="05" label="Contact" />
-            <h2 id="contact-title" className="cta-headline mt-8 font-display text-headline font-bold">
+            <h2 id="contact-title" className="cta-headline mt-8 font-wide text-[clamp(2.25rem,6vw,5.5rem)] leading-[0.95]">
               {HEADLINE.map((line, i) => (
                 <span key={line} className="block overflow-hidden pb-[0.08em]">
-                  <span className={i === 1 ? "cta-line block text-accent" : "cta-line block"}>{line}</span>
+                  <span className={i === 1 ? "cta-line text-glow block" : "cta-line block"}>{line}</span>
                 </span>
               ))}
             </h2>
@@ -79,12 +80,21 @@ export function Contact() {
             </p>
           </div>
           <div className="flex justify-end lg:col-span-4">
-            <AdventureMonkey className="w-40 md:w-52" />
+            {/* 지구를 바라보며 다음 모험을 기다리는 원숭이 */}
+            <div aria-hidden className="relative w-56 md:w-72">
+              <SpaceAsset src={space.earth} width={288} float={14} className="ml-auto w-[78%] opacity-90" />
+              <SpaceAsset src={space.sparkleLime2} width={32} float={5} className="absolute top-2 left-4 w-6" />
+              <SpaceAsset
+                src={space.monkey.back}
+                width={160}
+                className="absolute bottom-[-8%] left-0 w-[48%] drop-shadow-[0_20px_40px_rgb(0_0_0/0.6)]"
+              />
+            </div>
           </div>
         </div>
 
         {/* 이메일 */}
-        <div className="mt-16 flex flex-col gap-4 border-y border-line py-8 md:flex-row md:items-center md:justify-between">
+        <div className="glass hud relative mt-16 flex flex-col gap-4 rounded-2xl p-6 md:flex-row md:items-center md:justify-between md:p-8">
           <a
             href={`mailto:${contact.email}`}
             data-cursor="Mail"
@@ -98,7 +108,7 @@ export function Contact() {
               <button
                 type="button"
                 onClick={copyEmail}
-                className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-ink transition-colors duration-[var(--duration-fast)] hover:bg-fg"
+                className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-accent-ink shadow-[0_0_24px_rgb(198_244_50/0.35)] transition-colors duration-[var(--duration-fast)] hover:bg-fg"
               >
                 <Mail />
                 <span aria-live="polite">{copied ? "복사했어요!" : "이메일 복사"}</span>
@@ -113,13 +123,13 @@ export function Contact() {
         </div>
 
         {/* 그 밖의 연락 방법 */}
-        <ul className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {methods.map((m) => (
-            <li key={m.label} className="bg-bg">
+            <li key={m.label} className="glass rounded-2xl">
               <a
                 href={m.href}
                 {...(m.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="group/link flex items-center justify-between gap-4 p-6 transition-colors duration-[var(--duration-fast)] hover:bg-surface"
+                className="group/link flex items-center justify-between gap-4 rounded-2xl p-6 transition-colors duration-[var(--duration-fast)] hover:bg-white/[0.04]"
               >
                 <span>
                   <span className="eyebrow block">{m.label}</span>
@@ -135,7 +145,7 @@ export function Contact() {
       <Marquee
         reverse
         items={["Thanks for visiting", profile.name, profile.role, "Let's build together", profile.contact.email]}
-        className="mt-24 border-y border-line py-5 font-display text-2xl font-semibold text-subtle md:mt-32 md:text-4xl"
+        className="mt-24 border-y border-line bg-bg/30 py-5 font-wide text-2xl text-subtle backdrop-blur-sm md:mt-32 md:text-4xl"
       />
     </section>
   );

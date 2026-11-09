@@ -9,8 +9,8 @@ const base =
   "transition-colors duration-[var(--duration-fast)] ease-[var(--ease-out)]";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-accent text-accent-ink hover:bg-fg",
-  ghost: "border border-line text-fg hover:border-fg",
+  primary: "bg-accent text-accent-ink shadow-[0_0_24px_rgb(198_244_50/0.35)] hover:bg-fg hover:shadow-[0_0_24px_rgb(238_242_255/0.3)]",
+  ghost: "glass text-fg hover:border-line-strong",
 };
 
 type ButtonLinkProps = {

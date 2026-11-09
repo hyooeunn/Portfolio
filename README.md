@@ -24,13 +24,14 @@ src/
 ├─ app/                  라우트 (layout, page, projects/[slug])
 ├─ components/
 │  ├─ layout/            Header, Footer
-│  ├─ mascot/            Curious Monkey (Hero 앉기 · Projects 작업 · Activities 메달 · Contact 모험)
 │  ├─ motion/            CustomCursor, Magnetic, ScrollProgress 등 인터랙션 부품
 │  ├─ providers/         SmoothScroll (Lenis ↔ ScrollTrigger 연동)
 │  ├─ projects/          프로젝트 카드
 │  ├─ sections/          Hero, About, Skills, Projects, Activities, Contact
+│  ├─ space/             Starfield(별 배경), SpaceAsset(에셋 이미지), Parallax
 │  └─ ui/                Button, 아이콘
-├─ content/              ✏️ 사이트에 나오는 모든 글 (profile, skills, projects, activities)
+├─ assets/space/         우주 에셋 WebP (원숭이 6포즈, 행성 · 궤도 · HUD · 스킬 아이콘)
+├─ content/              ✏️ 사이트에 나오는 모든 글 (profile, skills, projects, activities) + 에셋 레지스트리(assets.ts)
 ├─ hooks/                useGsap(gsap.context 래퍼), useMediaQuery
 └─ lib/                  motion 토큰, gsap 등록, 폰트, 사이트 설정
 ```
@@ -47,10 +48,13 @@ src/
 - GSAP 애니메이션은 반드시 `useGsap`(gsap.context) 안에서 만들어 언마운트 시 정리합니다.
 - 터치 기기와 `prefers-reduced-motion`에서는 커서 · 마그네틱 · Lenis가 꺼집니다.
 
-## 마스코트
+## 디자인 컨셉 — Curious Explorer
 
-`src/components/mascot/` — 원본 SVG 캐릭터. 모든 포즈가 `MonkeyHead`(메롱 · 웃는 눈 표정)를 공유하고,
-공통 반응(깜빡임, 커서 따라보기, 호버 인사)은 `useWave`에 있습니다.
+깊은 우주(네이비 블랙) + 라임 포인트 + 유리 카드 · HUD 모서리.
+우주복 원숭이가 섹션마다 다른 포즈로 등장합니다 (Hero 떠다니기 · About 가리키기 · Projects 앉기 · Activities 엄지 척 · Contact 지구 바라보기).
+
+- 에셋은 `src/assets/space/`에 있고, `src/content/assets.ts`에서 이름으로 가져다 씁니다.
+- 프로젝트 카드 장식은 `projectArt`, 스킬 아이콘은 `skillIcons`에서 바꿀 수 있습니다.
 
 ## 배포 (Vercel)
 

@@ -4,7 +4,9 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { Reveal } from "@/components/motion/Reveal";
 import { ProjectMeta, teamLabel } from "@/components/projects/ProjectCards";
+import { SpaceAsset } from "@/components/space/SpaceAsset";
 import { ArrowUpRight } from "@/components/ui/icons";
+import { projectArt } from "@/content/assets";
 import { getProject, projects, teamSize } from "@/content/projects";
 import { profile } from "@/content/profile";
 
@@ -72,16 +74,21 @@ export default async function ProjectPage({ params }: Props) {
       </Link>
 
       {/* 요약 */}
-      <header className="mt-10">
+      <header className="relative mt-10">
+        {projectArt[project.slug] ? (
+          <div aria-hidden className="pointer-events-none absolute -top-6 right-0 w-36 md:w-64">
+            <SpaceAsset src={projectArt[project.slug]} width={256} float={9} priority />
+          </div>
+        ) : null}
         <ProjectMeta project={project} />
-        <h1 className="mt-6 font-display text-display font-bold">{project.title}</h1>
+        <h1 className="mt-6 font-wide text-[clamp(3rem,10vw,8.5rem)] leading-[0.9]">{project.title}</h1>
         <p className="mt-4 text-title text-muted">{project.subtitle}</p>
         <p className="mt-8 max-w-3xl text-xl font-semibold md:text-2xl">{project.oneLiner}</p>
 
-        <dl className="mt-12 grid gap-6 border-t border-line pt-8 sm:grid-cols-2 lg:grid-cols-4">
+        <dl className="glass relative mt-12 grid gap-6 rounded-2xl p-6 sm:grid-cols-2 lg:grid-cols-4 md:p-8">
           {info.map((item) => (
             <div key={item.label}>
-              <dt className={item.accent ? "eyebrow text-accent" : "eyebrow"}>{item.label}</dt>
+              <dt className={item.accent ? "eyebrow text-accent!" : "eyebrow"}>{item.label}</dt>
               <dd className="mt-2 leading-relaxed">{item.value}</dd>
             </div>
           ))}
@@ -95,7 +102,7 @@ export default async function ProjectPage({ params }: Props) {
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-line px-4 py-2 text-sm hover:border-fg"
+                  className="glass inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm hover:border-line-strong"
                 >
                   {l.label}
                   <ArrowUpRight />
@@ -124,7 +131,7 @@ export default async function ProjectPage({ params }: Props) {
           {project.impact?.length ? (
             <ul className="mt-10 grid gap-4 sm:grid-cols-2">
               {project.impact.map((i) => (
-                <li key={i} className="rounded-2xl border border-line p-5 text-lg font-semibold">
+                <li key={i} className="rounded-2xl border border-accent/30 bg-accent/[0.04] p-5 text-lg font-semibold">
                   {i}
                 </li>
               ))}
@@ -134,9 +141,10 @@ export default async function ProjectPage({ params }: Props) {
 
         {/* 내가 한 일 — 팀 작업과 구분 */}
         <Block label="My Work" title="팀에서 제가 직접 맡은 부분이에요.">
+
           <div className="grid gap-4 md:grid-cols-2">
             {project.contributions.map((c, i) => (
-              <div key={c.area} className="rounded-2xl border border-line bg-surface p-6">
+              <div key={c.area} className="glass hud relative rounded-2xl p-6">
                 <p className="flex items-baseline gap-3">
                   <span className="font-mono text-xs text-accent">{String(i + 1).padStart(2, "0")}</span>
                   <span className="text-lg font-semibold">{c.area}</span>
@@ -159,7 +167,7 @@ export default async function ProjectPage({ params }: Props) {
           <Block label="Screens">
             <ul className="grid gap-4 md:grid-cols-2">
               {project.screens.map((s) => (
-                <li key={s.title} className="rounded-2xl border border-line p-6">
+                <li key={s.title} className="glass rounded-2xl p-6">
                   {/* TODO: 스크린샷 이미지가 생기면 next/image로 표시 */}
                   <p className="text-lg font-semibold">{s.title}</p>
                   <p className="mt-2 leading-relaxed text-muted">{s.description}</p>
@@ -175,14 +183,14 @@ export default async function ProjectPage({ params }: Props) {
             <p className="eyebrow">{ts.area}</p>
             <p className="mt-3 text-lg text-muted">{ts.summary}</p>
 
-            <ol className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-2">
+            <ol className="mt-10 grid gap-4 md:grid-cols-2">
               {[
                 { label: "문제", text: ts.problem },
                 { label: "원인", text: ts.cause },
                 { label: "해결", text: ts.solution },
                 { label: "결과", text: ts.result },
               ].map((step, i) => (
-                <li key={step.label} className="bg-bg p-6">
+                <li key={step.label} className="glass rounded-2xl p-6">
                   <p className="flex items-baseline gap-3">
                     <span className="font-mono text-xs text-accent">{String(i + 1).padStart(2, "0")}</span>
                     <span className="font-semibold">{step.label}</span>
@@ -194,7 +202,7 @@ export default async function ProjectPage({ params }: Props) {
 
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               {ts.steps.map((s, i) => (
-                <div key={s.title} className="rounded-2xl bg-surface p-6">
+                <div key={s.title} className="rounded-2xl border border-line bg-bg/50 p-6">
                   <p className="font-mono text-xs text-subtle">
                     {String(i + 1).padStart(2, "0")} · {s.title}
                   </p>
@@ -210,8 +218,8 @@ export default async function ProjectPage({ params }: Props) {
               </p>
             ) : null}
 
-            <p className="mt-10 rounded-2xl border border-accent/40 p-6 text-lg leading-relaxed">
-              <span className="eyebrow mb-2 block text-accent">Learned</span>
+            <p className="mt-10 rounded-2xl border border-accent/40 bg-accent/[0.05] p-6 text-lg leading-relaxed shadow-[0_0_40px_-10px_rgb(198_244_50/0.3)]">
+              <span className="eyebrow mb-2 block text-accent!">Learned</span>
               {ts.learned}
             </p>
           </Block>
@@ -254,7 +262,7 @@ export default async function ProjectPage({ params }: Props) {
       <nav aria-label="다음 프로젝트" className="mt-32 border-t border-line pt-10">
         <Link href={`/projects/${next.slug}`} data-cursor="Next" className="group/next block">
           <p className="eyebrow">Next Project</p>
-          <p className="mt-4 flex items-center gap-4 font-display text-headline font-bold transition-colors duration-[var(--duration-fast)] group-hover/next:text-accent">
+          <p className="mt-4 flex items-center gap-4 font-wide text-[clamp(2.5rem,6vw,5rem)] leading-none transition-colors duration-[var(--duration-fast)] group-hover/next:text-accent">
             {next.title}
             <ArrowUpRight className="size-[0.6em] transition-transform duration-[var(--duration-fast)] ease-[var(--ease-out)] group-hover/next:translate-x-2 group-hover/next:-translate-y-2" />
           </p>

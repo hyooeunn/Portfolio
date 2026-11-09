@@ -5,6 +5,7 @@ import { CustomCursor } from "@/components/motion/CustomCursor";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { MotionProvider } from "@/components/providers/MotionProvider";
 import { SmoothScroll } from "@/components/providers/SmoothScroll";
+import { Starfield } from "@/components/space/Starfield";
 import { profile } from "@/content/profile";
 import { fontVariables } from "@/lib/fonts";
 import { siteConfig, siteUrl } from "@/lib/site";
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0b0c",
+  themeColor: "#04060d",
   colorScheme: "dark",
 };
 
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <MotionProvider>
           <SmoothScroll>
+            <Starfield />
             <ScrollProgress />
             <CustomCursor />
             <Header />
