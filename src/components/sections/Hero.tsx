@@ -161,21 +161,34 @@ export function Hero() {
       >
         <p data-intro-fade className="eyebrow flex items-center gap-3">
           <span aria-hidden className="size-1.5 rounded-full bg-accent shadow-[0_0_10px_var(--color-accent)]" />
-          {profile.name} · {profile.role}
+          Portfolio · {profile.name}
         </p>
 
-        <h1 data-intro className="mt-5 font-wide text-[clamp(3rem,10vw,9.5rem)] leading-[0.88] tracking-[-0.02em]">
+        {/* 윗줄: 직무(흰색) · 아랫줄: 영문 이름(라임, 가장 크게) */}
+        <h1 data-intro className="mt-5 font-wide tracking-[-0.02em]">
           <span className="sr-only">
-            {profile.name} — {profile.role}. {profile.headline}
+            {profile.name}({profile.nameEn}) — {profile.role}. {profile.headline}
           </span>
-          {profile.tagline.map((line, li) => (
-            <span key={line} aria-hidden className="block overflow-hidden pr-[0.1em] pb-[0.04em]">
+          {[profile.titleRole, profile.nameEn].map((line, li) => (
+            <span
+              key={line}
+              aria-hidden
+              className={
+                li === 0
+                  ? "block overflow-hidden pr-[0.1em] pb-[0.06em] text-[clamp(1.25rem,3.3vw,3.3rem)] leading-[1.05]"
+                  : "mt-1 block overflow-hidden pr-[0.1em] pb-[0.04em] text-[clamp(2.5rem,7vw,7rem)] leading-[0.92]"
+              }
+            >
               <span className={li === 1 ? "text-glow inline-block" : "inline-block"}>
-                {Array.from(line).map((ch, i) => (
-                  <span key={i} className="hero-letter inline-block will-change-transform">
-                    {ch}
-                  </span>
-                ))}
+                {Array.from(line).map((ch, i) =>
+                  ch === " " ? (
+                    <span key={i} className="inline-block w-[0.3em]" />
+                  ) : (
+                    <span key={i} className="hero-letter inline-block will-change-transform">
+                      {ch}
+                    </span>
+                  ),
+                )}
               </span>
             </span>
           ))}
@@ -212,12 +225,15 @@ export function Hero() {
           {/* HUD 신분증 카드 */}
           <div data-intro-fade className="hidden md:col-span-5 md:flex md:justify-end">
             <div className="glass hud relative w-64 rounded-2xl p-5">
-              <p className="font-display font-semibold tracking-[0.12em]">{profile.nameEn}</p>
-              <p className="mt-1 text-sm text-muted">{profile.role}</p>
-              <p className="mt-4 font-mono text-[11px] leading-relaxed tracking-wider text-subtle uppercase">
-                Gwangju Software
+              <p className="eyebrow flex items-center gap-2">
+                <span aria-hidden className="size-1.5 animate-pulse rounded-full bg-accent shadow-[0_0_8px_var(--color-accent)]" />
+                Status
+              </p>
+              <p className="mt-2 font-semibold">신입 Front-End 개발자로 함께할 팀을 찾고 있어요</p>
+              <p className="mt-3 font-mono text-[11px] leading-relaxed tracking-wider text-subtle uppercase">
+                Gwangju Software Meister HS
                 <br />
-                Meister High School
+                {profile.education.period}
               </p>
             </div>
           </div>
